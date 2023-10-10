@@ -1,4 +1,3 @@
-// ignore: unused_import
 import 'package:feedback_app/src/components/button.dart';
 import 'package:feedback_app/src/components/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    // try creating thr user
+    // try creating the user
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailTextController.text,
@@ -61,86 +60,110 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLargeScreen =
+        MediaQuery.of(context).size.width > 600; // Определение больших экранов
+
     return Scaffold(
-        backgroundColor: Colors.grey[400],
-        body: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // logo
+      backgroundColor: Colors.grey[400],
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 16.0), // Уменьшение горизонтальных отступов
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Увеличение размера значка для больших экранов
+                Icon(Icons.app_registration_outlined,
+                    size: isLargeScreen ? 200 : 100),
 
-                  const Icon(Icons.app_registration_outlined, size: 100),
+                const SizedBox(height: 50),
 
-                  // welcome back message
+                Text("Let's create an account for you",
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: isLargeScreen
+                          ? 24
+                          : 16, // Увеличение размера шрифта для больших экранов
+                    )),
 
-                  const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
-                  Text("Lets create an account for you",
-                      style: TextStyle(color: Colors.grey[700])),
+                // Адаптация ширины поля ввода
+                SizedBox(
+                  width: isLargeScreen ? 400 : 300,
+                  child: MyTextField(
+                    controller: emailTextController,
+                    hintText: 'Email',
+                    obscureText: false,
+                  ),
+                ),
 
-                  const SizedBox(height: 25),
+                const SizedBox(height: 10),
 
-                  // email textfield
+                // Адаптация ширины поля ввода
+                SizedBox(
+                  width: isLargeScreen ? 400 : 300,
+                  child: MyTextField(
+                    controller: passwordTextController,
+                    hintText: 'Password',
+                    obscureText: true,
+                  ),
+                ),
 
-                  MyTextField(
-                      controller: emailTextController,
-                      hintText: 'Email',
-                      obscureText: false),
+                const SizedBox(height: 10),
 
-                  const SizedBox(height: 10),
+                // Адаптация ширины поля ввода
+                SizedBox(
+                  width: isLargeScreen ? 400 : 300,
+                  child: MyTextField(
+                    controller: confirmPasswordTextController,
+                    hintText: 'Confirm password',
+                    obscureText: true,
+                  ),
+                ),
 
-                  // password textfield
+                const SizedBox(height: 10),
 
-                  MyTextField(
-                      controller: passwordTextController,
-                      hintText: 'Password',
-                      obscureText: true),
+                // Адаптация ширины кнопки
+                SizedBox(
+                  width: isLargeScreen ? 400 : 300,
+                  child: MyButton(onTap: signUp, text: 'Sign up'),
+                ),
 
-                  const SizedBox(height: 10),
+                const SizedBox(height: 25),
 
-                  // confirm password textfield
-
-                  MyTextField(
-                      controller: confirmPasswordTextController,
-                      hintText: 'Confirm password',
-                      obscureText: true),
-
-                  const SizedBox(height: 10),
-
-                  // sign up button
-
-                  MyButton(onTap: signUp, text: 'Sign up'),
-
-                  const SizedBox(height: 25),
-
-                  // go to register page
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Already have an account?',
-                          style: TextStyle(color: Colors.grey[700])),
-                      const SizedBox(width: 4),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: widget.onTap,
-                          child: const Text('Login now',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue,
-                              )),
-                        ),
+                // Переход на страницу входа
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Already have an account?',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: isLargeScreen
+                              ? 16
+                              : 14, // Увеличение размера шрифта для больших экранов
+                        )),
+                    const SizedBox(width: 4),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: widget.onTap,
+                        child: const Text('Login now',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                              // fontSize: isLargeScreen ? 16 : 14, // Увеличение размера шрифта для больших экранов
+                            )),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
