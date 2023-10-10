@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "329545855641",
+    "project_id": "feedback-app-b1ea0",
+    "storage_bucket": "feedback-app-b1ea0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329545855641:android:5d564b90ffc6e75ea5fe08",
+        "android_client_info": {
+          "package_name": "com.example.feedback_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtUuZHWLVI3ijYYXzdXoj41zjKX2_PdB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
